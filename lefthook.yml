@@ -1,0 +1,17 @@
+pre-push:
+  parallel: true
+  commands:
+    lint:
+      run: yarn lint
+    test:
+      run: yarn test:ci
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.tsx?"
+      run: yarn lint {staged_files} && git add {staged_files}
+    test:
+      glob: "*.tsx?"
+      run: yarn test:ci {staged_files} --findRelatedTests --passWithNoTests
