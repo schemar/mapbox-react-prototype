@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 import './Form.css';
 
-import { Note } from './Notes';
+import Note from './Note';
 
 interface FormProps {
     onSubmit: (note: Omit<Note, 'lat' | 'lng'>) => void | Promise<void>;

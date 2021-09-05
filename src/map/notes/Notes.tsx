@@ -3,21 +3,13 @@ import './Notes.css';
 
 import Button from './Button';
 import Form from './Form';
+import type Note from './Note';
 import Pin from './Pin';
 
-export interface Note {
-    lat: number;
-    lng: number;
-    answerOne: string;
-    answerTwo: string;
-    answerThree: string;
-    file: string;
-}
-
 interface NotesProps {
-    lat: number;
+    addNote: (note: Note) => void | Promise<void>;
     lng: number;
-    onChange: (notes: Note[]) => void | Promise<void>;
+    lat: number;
 }
 
 enum States {
@@ -26,17 +18,14 @@ enum States {
     AddNote,
 }
 
-const Notes: FunctionComponent<NotesProps> = ({ lat, lng, onChange }) => {
+const Notes: FunctionComponent<NotesProps> = ({ addNote, lng, lat }) => {
     const [state, setState] = useState<States>(States.Idle);
-    const [notes, setNotes] = useState<Note[]>([]);
 
     const submitNotesForm = (note: Omit<Note, 'lat' | 'lng'>) => {
         setState(States.Idle);
 
-        const noteAtPosition = { ...note, lat, lng };
-        const updatedNotes = [...notes, noteAtPosition];
-        setNotes(updatedNotes);
-        onChange(updatedNotes);
+        const noteAtPosition = { ...note, lng, lat };
+        addNote(noteAtPosition);
     };
 
     const renderButtons = (): ReactElement => {

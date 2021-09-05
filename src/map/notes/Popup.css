@@ -1,4 +1,4 @@
-.mapboxgl-popup-content {   
+.mapboxgl-popup-content {
     background-color: #fff;
     border-radius: 30px;
     border: 1px solid #fff;
@@ -18,7 +18,8 @@
     padding: 10px;
 }
 
-.note-popup dl dt, dd{
+.note-popup dl dt,
+dd {
     font-size: 1rem;
     font-family: Roboto;
 }

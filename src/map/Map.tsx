@@ -3,10 +3,13 @@ import { renderToString } from 'react-dom/server';
 import './Map.css';
 
 import mapboxgl, { GeoJSONSource, Map as MapboxMap } from 'mapbox-gl';
+
+import { fetchNotes, postNote } from '../store/store';
 import accessToken from '../accessToken';
 
 import pin from './notes/pin.png';
-import Notes, { Note } from './notes/Notes';
+import Notes from './notes/Notes';
+import Note from './notes/Note';
 import Popup from './notes/Popup';
 
 mapboxgl.accessToken = accessToken;
@@ -23,7 +26,45 @@ const Map: FunctionComponent<MapProps> = ({ startingLocation }) => {
     const [lat, setLat] = useState<number>(startingLocation.lng);
     const [zoom, setZoom] = useState<number>(startingLocation.zoom);
 
+    const [notes, setNotes] = useState<Note[]>([]);
+
+    const putNotesOnMap = async (notes: Note[]): Promise<void> => {
+        while (!map.current || !map.current!.loaded) {
+            // Wait for map to load.
+            await new Promise((resolve) => {
+                setTimeout(resolve, 100);
+            });
+        }
+
+        const notesAsGeoJSON: GeoJSON.FeatureCollection<GeoJSON.Geometry> = {
+            type: 'FeatureCollection',
+            features: notes.map((note: Note) => ({
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [note.lng, note.lat],
+                },
+                properties: { ...note },
+            })),
+        };
+
+        while (!map.current!.getSource('notes')) {
+            // Wait for source to load.
+            await new Promise((resolve) => {
+                setTimeout(resolve, 100);
+            });
+        }
+
+        (map.current!.getSource('notes') as GeoJSONSource).setData(
+            notesAsGeoJSON,
+        );
+    };
+
     useEffect(() => {
+        const initialNotes = fetchNotes();
+        setNotes(initialNotes);
+        putNotesOnMap(initialNotes);
+
         map.current = new mapboxgl.Map({
             container: mapContainer.current!,
             style: 'mapbox://styles/mapbox/light-v10',
@@ -111,32 +152,19 @@ const Map: FunctionComponent<MapProps> = ({ startingLocation }) => {
         });
     });
 
-    const updateNotesOnMap = (notes: Note[]): void => {
-        while (!map.current!.loaded) {
-            // Wait for map to load.
-            // Better would be a non-blocking wait.
-        }
-        const notesAsGeoJSON: GeoJSON.FeatureCollection<GeoJSON.Geometry> = {
-            type: 'FeatureCollection',
-            features: notes.map((note: Note) => ({
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [note.lng, note.lat],
-                },
-                properties: { ...note },
-            })),
-        };
+    const addNote = async (note: Note): Promise<void> => {
+        postNote(note);
 
-        (map.current!.getSource('notes') as GeoJSONSource).setData(
-            notesAsGeoJSON,
-        );
+        const updatedNotes = [...notes, note];
+        setNotes(updatedNotes);
+
+        putNotesOnMap(updatedNotes);
     };
 
     return (
         <>
             <div ref={mapContainer} className="map-container" />
-            <Notes onChange={updateNotesOnMap} lat={lat} lng={lng} />
+            <Notes addNote={addNote} lat={lat} lng={lng} />
         </>
     );
 };

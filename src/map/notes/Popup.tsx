@@ -1,7 +1,7 @@
 import { FunctionComponent, ReactElement } from 'react';
 import './Popup.css';
 
-import { Note } from './Notes';
+import Note from './Note';
 
 interface FormProps {
     note: Note;
