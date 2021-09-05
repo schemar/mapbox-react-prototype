@@ -15,7 +15,7 @@
     "test": "react-scripts test",
     "test:ci": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "tsc --noEmit && eslint --fix ./src/**/*.{ts,tsx}"
+    "lint": "tsc --noEmit && eslint --fix ./src/*.{ts,tsx} ./src/**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": [

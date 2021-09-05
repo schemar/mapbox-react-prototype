@@ -7,7 +7,11 @@ function App() {
         zoom: 12,
     };
 
-    return <Map startingLocation={sanFrancisco} />;
+    return (
+        <div className="app-container">
+            <Map startingLocation={sanFrancisco} />
+        </div>
+    );
 }
 
 export default App;
