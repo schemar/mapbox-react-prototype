@@ -12,5 +12,8 @@ cp ./src/accessToken.example.ts ./src/accessToken.ts
 # Edit ./src/accessToken.ts and add your Mapbox access token.
 # You find it on your Mapbox account page.
 
+# Format to ensure react-scripts starts:
+yarn format
+
 yarn start
 ```
