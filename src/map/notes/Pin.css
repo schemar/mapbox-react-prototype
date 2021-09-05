@@ -1,0 +1,8 @@
+.notes-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -66px 0 0 -35px;
+    z-index: 100;
+    filter: drop-shadow(4px 8px 0.1rem #00000044);
+}

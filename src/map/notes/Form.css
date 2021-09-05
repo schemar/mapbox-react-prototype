@@ -1,0 +1,56 @@
+.notes-form-container {
+    width: 20vw;
+    height: 60vh;
+
+    position: absolute;
+    top: 20vh;
+    left: 65vw;
+
+    background-color: #fff;
+    border-radius: 30px;
+    border: 1px solid #fff;
+
+    padding: 50px 30px 30px 30px;
+
+    color: black;
+    font-size: 1.5rem;
+    font-family: Roboto;
+    font-weight: 500;
+
+    filter: drop-shadow(0 0 0.5rem #00000066);
+
+    z-index: 100;
+}
+
+.notes-form-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+}
+
+.notes-form label,
+input {
+    font-size: 1rem;
+    display: block;
+}
+
+.notes-form input {
+    margin: 25px 0 25px 0;
+    border-width: 0 0 1px 0;
+    border-color: #bbb;
+    padding: 4px;
+}
+
+.notes-form-submit {
+    background-color: #fff;
+    border: 0;
+
+    cursor: pointer;
+
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+
+    display: block;
+    margin: 0 auto;
+}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "classnames": "^2.3.1",
     "mapbox-gl": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -15,7 +16,8 @@
     "test": "react-scripts test",
     "test:ci": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "tsc --noEmit && eslint --fix ./src/*.{ts,tsx} ./src/**/*.{ts,tsx}"
+    "lint": "tsc --noEmit && eslint --fix ./src/*.{ts,tsx} ./src/**/*.{ts,tsx}",
+    "format": "prettier -w ./src"
   },
   "eslintConfig": {
     "extends": [

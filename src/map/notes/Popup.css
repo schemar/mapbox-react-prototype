@@ -1,0 +1,39 @@
+.mapboxgl-popup-content {   
+    background-color: #fff;
+    border-radius: 30px;
+    border: 1px solid #fff;
+
+    padding: 20px;
+
+    filter: drop-shadow(0 0 0.5rem #00000066);
+
+    min-width: 20vw;
+}
+
+.mapboxgl-popup-close-button {
+    margin: 20px 20px 0 0;
+}
+
+.note-popup {
+    padding: 10px;
+}
+
+.note-popup dl dt, dd{
+    font-size: 1rem;
+    font-family: Roboto;
+}
+
+.note-popup dl dt {
+    font-weight: 700;
+}
+
+.note-popup dl dd {
+    margin: 25px 0 25px 0;
+    border-bottom: 1px solid #bbb;
+    padding: 4px;
+}
+
+.note-popup-empty {
+    font-style: italic;
+    opacity: 0.5;
+}
